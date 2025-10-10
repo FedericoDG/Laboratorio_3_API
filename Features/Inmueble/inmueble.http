@@ -1,0 +1,37 @@
+@host = http://localhost:5119
+@token = TU_TOKEN_JWT_ACÁ
+
+### GET - Mis inmuebles (basado en JWT)
+GET {{host}}/api/inmuebles/me
+Authorization: Bearer {{token}}
+
+### GET - Mis inmuebles con contratos activos
+GET {{host}}/api/inmuebles/mis-contratos-activos
+Authorization: Bearer {{token}}
+
+
+### GET - Obtener inmueble por ID
+GET {{host}}/api/inmuebles/id/1
+
+### POST - Crear inmueble (basado en JWT)
+POST {{host}}/api/inmuebles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "direccion": "Nueva Dirección 123, CABA",
+  "ambientes": 3,
+  "tipo": "Departamento",
+  "uso": "Residencial",
+  "precio": 200000.50,
+  "imagen": "https://example.com/nuevo-depto.jpg",
+}
+
+### PUT - Actualizar solo disponible
+PUT {{host}}/api/inmuebles/id/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "disponible": false
+}

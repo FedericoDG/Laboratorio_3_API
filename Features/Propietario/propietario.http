@@ -1,0 +1,19 @@
+@host = http://localhost:5119
+@token = TU_TOKEN_JWT_ACÁ
+
+### GET - Mi perfil (basado en token)
+GET {{host}}/api/propietarios/me
+Authorization: Bearer {{token}}
+
+### PUT - Actualizar mi perfil (basado en token)
+PUT {{host}}/api/propietarios/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "dni": 12345678,
+  "apellido": "González",
+  "nombre": "Juan Carlos",
+  "mail": "juan.gonzalez@email.com",
+  "telefono": 1234567890
+}

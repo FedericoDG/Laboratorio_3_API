@@ -1,0 +1,19 @@
+
+@baseUrl = http://localhost:5119
+@token = TU_TOKEN_JWT_ACÁ
+
+###
+# POST Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "juan.gonzalez@email.com",
+  "password": "1234"
+}
+
+###
+# GET obtener datos de mi perfil
+GET {{baseUrl}}/api/auth/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
