@@ -50,12 +50,17 @@ namespace InmobiliariaApi.Features.Inmueble
 
     // GET: api/inmuebles/id/{id}
     [HttpGet("id/{id}")]
+    [Authorize]
     public async Task<ActionResult<InmuebleResponseDto>> GetInmuebleById(int id)
     {
+      var idPropietario = int.Parse(User.FindFirst("idPropietario")?.Value ?? "0");
+
+      // Buscar SOLO inmuebles que me pertenecen
       var inmueble = await _context.Inmuebles
         .Include(i => i.Propietario)
-        .FirstOrDefaultAsync(i => i.IdInmueble == id);
+        .FirstOrDefaultAsync(i => i.IdInmueble == id && i.IdPropietario == idPropietario);
 
+      // Si no existe o no es mío
       if (inmueble == null) return NotFound();
 
       var response = new InmuebleResponseDto
@@ -133,12 +138,13 @@ namespace InmobiliariaApi.Features.Inmueble
     {
       var idPropietario = int.Parse(User.FindFirst("idPropietario")?.Value ?? "0");
 
+      // Buscar SOLO inmuebles que me pertenecen
       var inmueble = await _context.Inmuebles
         .Include(i => i.Propietario)
-        .FirstOrDefaultAsync(i => i.IdInmueble == id);
+        .FirstOrDefaultAsync(i => i.IdInmueble == id && i.IdPropietario == idPropietario);
 
+      // Si no existe o no es mío
       if (inmueble == null) return NotFound();
-      if (inmueble.IdPropietario != idPropietario) return Forbid();
 
       inmueble.Disponible = dto.Disponible;
       await _context.SaveChangesAsync();

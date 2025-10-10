@@ -11,7 +11,8 @@ Authorization: Bearer {{token}}
 
 
 ### GET - Obtener inmueble por ID
-GET {{host}}/api/inmuebles/id/1
+GET {{host}}/api/inmuebles/id/2
+Authorization: Bearer {{token}}
 
 ### POST - Crear inmueble (basado en JWT)
 POST {{host}}/api/inmuebles
@@ -28,7 +29,7 @@ Content-Type: application/json
 }
 
 ### PUT - Actualizar solo disponible
-PUT {{host}}/api/inmuebles/id/1
+PUT {{host}}/api/inmuebles/id/3
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
