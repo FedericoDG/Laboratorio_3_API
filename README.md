@@ -51,7 +51,7 @@ Antes de comenzar, asegurate de tener instalado:
 
 ```bash
 git clone https://github.com/FedericoDG/Laboratorio_3_API
-cd inmobiliaria-api
+cd Laboratorio_3_API
 ```
 
 ### 2️⃣ Levantar base de datos MySQL con Docker
@@ -104,7 +104,7 @@ Esto creará automáticamente:
 - ✅ Estructura de tablas (Propietarios, Inmuebles, Inquilinos, Alquileres, Pagos)
 - ✅ Datos de prueba (seeders) para testing
 
-### 👤 Datos de Login para Pruebas
+### Datos de Login para Pruebas
 
 Una vez aplicadas las migraciones, puedes usar estos propietarios de prueba para hacer login:
 
