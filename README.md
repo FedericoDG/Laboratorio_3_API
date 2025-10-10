@@ -2,7 +2,7 @@
 
 **API REST** para propietarios de inmuebles que desean hacer seguimiento de sus propiedades, inquilinos y pagos.  
 Desarrollado en **ASP.NET Core Web API (.NET 9)** con base de datos **MySQL** y Entity Framework Core.  
-Diseñado para ser consumido desde [Laboratorio_3_Android](https://github.com/FedericoDG/Laboratorio_3_Android)\*\*
+Diseñado para ser consumido desde [Laboratorio_3_Android](https://github.com/FedericoDG/Laboratorio_3_Android)
 
 ---
 
@@ -10,10 +10,10 @@ Diseñado para ser consumido desde [Laboratorio_3_Android](https://github.com/Fe
 
 ### Features Implementadas
 
-- ** Autenticación JWT** - Login seguro para propietarios
-- ** Perfil Propietario** - Gestión de datos personales del propietario
-- ** Mis Inmuebles** - Catálogo personal de propiedades del propietario
-- ** Mis Contratos** - Seguimiento de alquileres activos con inquilinos y pagos
+- **Autenticación JWT** - Login seguro para propietarios
+- **Perfil Propietario** - Gestión de datos personales del propietario
+- **Mis Inmuebles** - Catálogo personal de propiedades del propietario
+- **Mis Contratos** - Seguimiento de alquileres activos con inquilinos y pagos
 
 ### Endpoints
 
@@ -50,7 +50,7 @@ Antes de comenzar, asegurate de tener instalado:
 ### 1️⃣ Clonar el repositorio
 
 ```bash
-git clone <tu-repositorio-url>
+git clone https://github.com/FedericoDG/Laboratorio_3_API
 cd inmobiliaria-api
 ```
 
