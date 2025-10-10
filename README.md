@@ -29,8 +29,6 @@ GET    /api/inmuebles/mis-contratos-activos   # Listar mis inmuebles con contrat
 GET    /api/inmuebles/{id}                    # Listar el inmueble con determinada id
 POST   /api/inmuebles                         # Registrar un nuevo inmueble
 PUT    /api/inmuebles/id/{id}                 # Actualizar disponibilidad de un inmueble
-
-POST   /api/alquileres                        # Crear contrato en un inmueble
 ```
 
 ---
@@ -136,3 +134,4 @@ La API estará disponible en:
 - **HTTP**: `http://localhost:5119`
 
 ---
+
