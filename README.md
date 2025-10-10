@@ -2,7 +2,7 @@
 
 **API REST** para propietarios de inmuebles que desean hacer seguimiento de sus propiedades, inquilinos y pagos.  
 Desarrollado en **ASP.NET Core Web API (.NET 9)** con base de datos **MySQL** y Entity Framework Core.  
-Diseñado para ser consumido desde (**esta app de Android**)[https://github.com/FedericoDG/Laboratorio_3_Android].
+Diseñado para ser consumido desde [Laboratorio_3_Android](https://github.com/FedericoDG/Laboratorio_3_Android)\*\*
 
 ---
 
