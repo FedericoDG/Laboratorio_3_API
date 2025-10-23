@@ -139,7 +139,7 @@ namespace InmobiliariaApi
           Tipo = "Departamento",
           Uso = "Residencial",
           Precio = 150000.00,
-          Imagen = "https://example.com/depto1.jpg",
+          Imagen = "",
           Disponible = true,
           IdPropietario = 1 // Juan Carlos González
         },
@@ -150,7 +150,7 @@ namespace InmobiliariaApi
           Tipo = "Casa",
           Uso = "Residencial",
           Precio = 280000.00,
-          Imagen = "https://example.com/casa1.jpg",
+          Imagen = "",
           Disponible = true,
           IdPropietario = 1 // Juan Carlos González
         },
@@ -161,7 +161,7 @@ namespace InmobiliariaApi
           Tipo = "Local",
           Uso = "Comercial",
           Precio = 95000.00,
-          Imagen = "https://example.com/local1.jpg",
+          Imagen = "",
           Disponible = false,
           IdPropietario = 2 // María Elena Martínez
         },
@@ -172,7 +172,7 @@ namespace InmobiliariaApi
           Tipo = "Casa",
           Uso = "Residencial",
           Precio = 450000.00,
-          Imagen = "https://example.com/casa2.jpg",
+          Imagen = "",
           Disponible = true,
           IdPropietario = 3 // Carlos Alberto López
         },
@@ -183,7 +183,7 @@ namespace InmobiliariaApi
           Tipo = "Departamento",
           Uso = "Residencial",
           Precio = 120000.00,
-          Imagen = "https://example.com/depto2.jpg",
+          Imagen = "",
           Disponible = true,
           IdPropietario = 2 // María Elena Martínez
         }

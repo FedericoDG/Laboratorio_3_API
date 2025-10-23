@@ -54,6 +54,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Servir archivos estáticos (para imágenes en mi caso)
+app.UseStaticFiles();
+
 // Agregar middleware de autenticación y autorización
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace InmobiliariaApi.Features.Inmueble
 {
@@ -87,18 +88,53 @@ namespace InmobiliariaApi.Features.Inmueble
     // POST: api/inmuebles
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<InmuebleResponseDto>> CreateInmueble(InmuebleCreateDto inmuebleDto)
+    public async Task<ActionResult<InmuebleResponseDto>> CreateInmueble(
+        [FromForm] string direccion,
+        [FromForm] int ambientes,
+        [FromForm] string tipo,
+        [FromForm] string uso,
+        [FromForm] double precio,
+        [FromForm] IFormFile? imagen)
     {
+      // Validación sencilla de los campos
+      if (string.IsNullOrEmpty(direccion) || ambientes <= 0 ||
+          string.IsNullOrEmpty(tipo) || string.IsNullOrEmpty(uso) || precio <= 0)
+      {
+        return BadRequest("Todos los campos son obligatorios y deben ser válidos");
+      }
+
       var idPropietario = int.Parse(User.FindFirst("idPropietario")?.Value ?? "0");
+
+      // Procesar la imagen (si es q existe)
+      string? rutaImagen = null;
+      if (imagen != null && imagen.Length > 0)
+      {
+        // Crear carpeta si no existe (aunque puse un .gitkeep)
+        var carpetaImagenes = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+        Directory.CreateDirectory(carpetaImagenes);
+
+        // Generar nombre random para la imagen
+        var nombreArchivo = $"{Guid.NewGuid()}_{Path.GetFileName(imagen.FileName)}";
+        var rutaCompleta = Path.Combine(carpetaImagenes, nombreArchivo);
+
+        // Guardar la imagen
+        using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+        {
+          await imagen.CopyToAsync(stream);
+        }
+
+        // Ruta relativa para guardar en DB
+        rutaImagen = $"/images/{nombreArchivo}";
+      }
 
       var inmueble = new Inmueble
       {
-        Direccion = inmuebleDto.Direccion,
-        Ambientes = inmuebleDto.Ambientes,
-        Tipo = inmuebleDto.Tipo,
-        Uso = inmuebleDto.Uso,
-        Precio = inmuebleDto.Precio,
-        Imagen = inmuebleDto.Imagen,
+        Direccion = direccion,
+        Ambientes = ambientes,
+        Tipo = tipo,
+        Uso = uso,
+        Precio = precio,
+        Imagen = rutaImagen,
         Disponible = false,
         IdPropietario = idPropietario
       };

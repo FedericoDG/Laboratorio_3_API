@@ -9,27 +9,45 @@ Authorization: Bearer {{token}}
 GET {{host}}/api/inmuebles/mis-contratos-activos
 Authorization: Bearer {{token}}
 
-
 ### GET - Obtener inmueble por ID
-GET {{host}}/api/inmuebles/id/2
+GET {{host}}/api/inmuebles/id/1
 Authorization: Bearer {{token}}
 
-### POST - Crear inmueble (basado en JWT)
+### POST - Crear inmueble (multipart con imagen real)
 POST {{host}}/api/inmuebles
 Authorization: Bearer {{token}}
-Content-Type: application/json
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
-{
-  "direccion": "Nueva Dirección 123, CABA",
-  "ambientes": 3,
-  "tipo": "Departamento",
-  "uso": "Residencial",
-  "precio": 200000.50,
-  "imagen": "https://example.com/nuevo-depto.jpg",
-}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="direccion"
 
-### PUT - Actualizar solo disponible
-PUT {{host}}/api/inmuebles/id/3
+Nueva Dirección 123, CABA
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ambientes"
+
+3
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="tipo"
+
+Departamento
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="uso"
+
+Residencial
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="precio"
+
+200000.50
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="imagen"; filename="LSQ.jpg"
+Content-Type: image/jpeg
+
+< /home/federico/Downloads/LSQ.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+### PUT - Actualizar disponibilidad de inmueble
+PUT {{host}}/api/inmuebles/id/1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
