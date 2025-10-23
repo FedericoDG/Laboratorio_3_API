@@ -53,20 +53,10 @@ namespace InmobiliariaApi.Migrations
 
                     b.HasKey("IdAlquiler");
 
-                    b.HasIndex("FechaFin")
-                        .HasDatabaseName("IX_Alquiler_FechaFin");
-
-                    b.HasIndex("FechaInicio")
-                        .HasDatabaseName("IX_Alquiler_FechaInicio");
-
                     b.HasIndex("IdInmueble")
                         .HasDatabaseName("IX_Alquiler_Inmueble");
 
-                    b.HasIndex("IdInquilino")
-                        .HasDatabaseName("IX_Alquiler_Inquilino");
-
-                    b.HasIndex("FechaInicio", "FechaFin")
-                        .HasDatabaseName("IX_Alquiler_Fechas");
+                    b.HasIndex("IdInquilino");
 
                     b.ToTable("alquileres");
 
@@ -127,27 +117,18 @@ namespace InmobiliariaApi.Migrations
 
                     b.Property<string>("Tipo")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("longtext")
                         .HasColumnName("tipo");
 
                     b.Property<string>("Uso")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("longtext")
                         .HasColumnName("uso");
 
                     b.HasKey("IdInmueble");
 
-                    b.HasIndex("Disponible")
-                        .HasDatabaseName("IX_Inmueble_Disponible");
-
                     b.HasIndex("IdPropietario")
                         .HasDatabaseName("IX_Inmueble_Propietario");
-
-                    b.HasIndex("Tipo")
-                        .HasDatabaseName("IX_Inmueble_Tipo");
-
-                    b.HasIndex("Uso")
-                        .HasDatabaseName("IX_Inmueble_Uso");
 
                     b.ToTable("inmuebles");
 
@@ -159,7 +140,7 @@ namespace InmobiliariaApi.Migrations
                             Direccion = "Av. Corrientes 1234, CABA",
                             Disponible = true,
                             IdPropietario = 1,
-                            Imagen = "https://example.com/depto1.jpg",
+                            Imagen = "",
                             Precio = 150000.0,
                             Tipo = "Departamento",
                             Uso = "Residencial"
@@ -171,7 +152,7 @@ namespace InmobiliariaApi.Migrations
                             Direccion = "San Martín 567, Belgrano",
                             Disponible = true,
                             IdPropietario = 1,
-                            Imagen = "https://example.com/casa1.jpg",
+                            Imagen = "",
                             Precio = 280000.0,
                             Tipo = "Casa",
                             Uso = "Residencial"
@@ -183,7 +164,7 @@ namespace InmobiliariaApi.Migrations
                             Direccion = "Florida 890, Microcentro",
                             Disponible = false,
                             IdPropietario = 2,
-                            Imagen = "https://example.com/local1.jpg",
+                            Imagen = "",
                             Precio = 95000.0,
                             Tipo = "Local",
                             Uso = "Comercial"
@@ -195,7 +176,7 @@ namespace InmobiliariaApi.Migrations
                             Direccion = "Libertador 2345, Palermo",
                             Disponible = true,
                             IdPropietario = 3,
-                            Imagen = "https://example.com/casa2.jpg",
+                            Imagen = "",
                             Precio = 450000.0,
                             Tipo = "Casa",
                             Uso = "Residencial"
@@ -207,7 +188,7 @@ namespace InmobiliariaApi.Migrations
                             Direccion = "Rivadavia 3456, Caballito",
                             Disponible = true,
                             IdPropietario = 2,
-                            Imagen = "https://example.com/depto2.jpg",
+                            Imagen = "",
                             Precio = 120000.0,
                             Tipo = "Departamento",
                             Uso = "Residencial"
@@ -247,10 +228,6 @@ namespace InmobiliariaApi.Migrations
                         .HasColumnName("telefono");
 
                     b.HasKey("IdInquilino");
-
-                    b.HasIndex("Dni")
-                        .IsUnique()
-                        .HasDatabaseName("IX_Inquilino_Dni");
 
                     b.ToTable("inquilinos");
 
@@ -311,14 +288,8 @@ namespace InmobiliariaApi.Migrations
 
                     b.HasKey("IdPago");
 
-                    b.HasIndex("Fecha")
-                        .HasDatabaseName("IX_Pago_Fecha");
-
                     b.HasIndex("IdAlquiler")
                         .HasDatabaseName("IX_Pago_Alquiler");
-
-                    b.HasIndex("NroPago")
-                        .HasDatabaseName("IX_Pago_NroPago");
 
                     b.ToTable("pagos");
 
@@ -435,10 +406,6 @@ namespace InmobiliariaApi.Migrations
                         .HasColumnName("telefono");
 
                     b.HasKey("IdPropietario");
-
-                    b.HasIndex("Dni")
-                        .IsUnique()
-                        .HasDatabaseName("IX_Propietario_Dni");
 
                     b.HasIndex("Mail")
                         .IsUnique()

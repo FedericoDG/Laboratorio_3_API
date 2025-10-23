@@ -70,9 +70,9 @@ namespace InmobiliariaApi.Migrations
                     direccion = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ambientes = table.Column<int>(type: "int", nullable: false),
-                    tipo = table.Column<string>(type: "varchar(255)", nullable: false)
+                    tipo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    uso = table.Column<string>(type: "varchar(255)", nullable: false)
+                    uso = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     precio = table.Column<double>(type: "double", nullable: false),
                     imagen = table.Column<string>(type: "longtext", nullable: true)
@@ -170,11 +170,11 @@ namespace InmobiliariaApi.Migrations
                 columns: new[] { "id_inmueble", "ambientes", "direccion", "disponible", "id_propietario", "imagen", "precio", "tipo", "uso" },
                 values: new object[,]
                 {
-                    { 1, 3, "Av. Corrientes 1234, CABA", true, 1, "https://example.com/depto1.jpg", 150000.0, "Departamento", "Residencial" },
-                    { 2, 4, "San Martín 567, Belgrano", true, 1, "https://example.com/casa1.jpg", 280000.0, "Casa", "Residencial" },
-                    { 3, 2, "Florida 890, Microcentro", false, 2, "https://example.com/local1.jpg", 95000.0, "Local", "Comercial" },
-                    { 4, 5, "Libertador 2345, Palermo", true, 3, "https://example.com/casa2.jpg", 450000.0, "Casa", "Residencial" },
-                    { 5, 2, "Rivadavia 3456, Caballito", true, 2, "https://example.com/depto2.jpg", 120000.0, "Departamento", "Residencial" }
+                    { 1, 3, "Av. Corrientes 1234, CABA", true, 1, "", 150000.0, "Departamento", "Residencial" },
+                    { 2, 4, "San Martín 567, Belgrano", true, 1, "", 280000.0, "Casa", "Residencial" },
+                    { 3, 2, "Florida 890, Microcentro", false, 2, "", 95000.0, "Local", "Comercial" },
+                    { 4, 5, "Libertador 2345, Palermo", true, 3, "", 450000.0, "Casa", "Residencial" },
+                    { 5, 2, "Rivadavia 3456, Caballito", true, 2, "", 120000.0, "Departamento", "Residencial" }
                 });
 
             migrationBuilder.InsertData(
@@ -203,34 +203,14 @@ namespace InmobiliariaApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alquiler_FechaFin",
-                table: "alquileres",
-                column: "fecha_fin");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Alquiler_FechaInicio",
-                table: "alquileres",
-                column: "fecha_inicio");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Alquiler_Fechas",
-                table: "alquileres",
-                columns: new[] { "fecha_inicio", "fecha_fin" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Alquiler_Inmueble",
                 table: "alquileres",
                 column: "id_inmueble");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alquiler_Inquilino",
+                name: "IX_alquileres_id_inquilino",
                 table: "alquileres",
                 column: "id_inquilino");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inmueble_Disponible",
-                table: "inmuebles",
-                column: "disponible");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inmueble_Propietario",
@@ -238,41 +218,9 @@ namespace InmobiliariaApi.Migrations
                 column: "id_propietario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inmueble_Tipo",
-                table: "inmuebles",
-                column: "tipo");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inmueble_Uso",
-                table: "inmuebles",
-                column: "uso");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inquilino_Dni",
-                table: "inquilinos",
-                column: "dni",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Pago_Alquiler",
                 table: "pagos",
                 column: "id_alquiler");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pago_Fecha",
-                table: "pagos",
-                column: "fecha");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pago_NroPago",
-                table: "pagos",
-                column: "nro_pago");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Propietario_Dni",
-                table: "propietarios",
-                column: "dni",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Propietario_Mail",

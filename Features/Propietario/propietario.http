@@ -15,5 +15,7 @@ Content-Type: application/json
   "apellido": "González",
   "nombre": "Juan Carlos",
   "mail": "juan.gonzalez@email.com",
-  "telefono": 1234567890
+  "telefono": 1234567890,
+  "oldPassword": "abc",
+  "password": "1234",
 }

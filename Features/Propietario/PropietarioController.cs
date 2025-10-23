@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace InmobiliariaApi.Features.Propietario
 {
@@ -10,10 +11,12 @@ namespace InmobiliariaApi.Features.Propietario
   public class PropietarioController : ControllerBase
   {
     private readonly InmobiliariaDbContext _context;
+    private readonly PasswordHasher<Propietario> _passwordHasher;
 
     public PropietarioController(InmobiliariaDbContext context)
     {
       _context = context;
+      _passwordHasher = new PasswordHasher<Propietario>();
     }
 
     // GET: api/propietarios/me
@@ -51,13 +54,22 @@ namespace InmobiliariaApi.Features.Propietario
     {
       var idPropietario = int.Parse(User.FindFirst("idPropietario")?.Value ?? "0");
 
-      // Verificar si existe otro propietario con el mismo DNI)
-      var existeOtroPropietario = await _context.Propietarios
-        .AnyAsync(p => p.Dni == propietarioDto.Dni && p.IdPropietario != idPropietario);
-
-      if (existeOtroPropietario)
+      // Validación de formato
+      if (!string.IsNullOrEmpty(propietarioDto.Mail) && !IsValidEmail(propietarioDto.Mail))
       {
-        return Conflict($"Ya existe otro propietario con el DNI {propietarioDto.Dni}");
+        return BadRequest("El formato del email es inválido");
+      }
+
+      // Verificar que el email no exista ya en la db (si se está intentando actualizarlo)
+      if (!string.IsNullOrEmpty(propietarioDto.Mail))
+      {
+        var existeOtroPropietarioEmail = await _context.Propietarios
+          .AnyAsync(p => p.Mail == propietarioDto.Mail && p.IdPropietario != idPropietario);
+
+        if (existeOtroPropietarioEmail)
+        {
+          return Conflict("Los datos proporcionados ya están en uso");
+        }
       }
 
       // Buscar el propietario actual
@@ -69,17 +81,37 @@ namespace InmobiliariaApi.Features.Propietario
         return NotFound("Propietario no encontrado");
       }
 
-      // Actualizar datos
-      propietario.Dni = propietarioDto.Dni;
-      propietario.Apellido = propietarioDto.Apellido;
-      propietario.Nombre = propietarioDto.Nombre;
-      propietario.Mail = propietarioDto.Mail;
+
+      // Actualizar datos (solo campos permitidos, no DNI)
+      if (!string.IsNullOrEmpty(propietarioDto.Apellido))
+      {
+        propietario.Apellido = propietarioDto.Apellido;
+      }
+
+      if (!string.IsNullOrEmpty(propietarioDto.Nombre))
+      {
+        propietario.Nombre = propietarioDto.Nombre;
+      }
+
+      if (!string.IsNullOrEmpty(propietarioDto.Mail))
+      {
+        propietario.Mail = propietarioDto.Mail;
+      }
+
       propietario.Telefono = propietarioDto.Telefono;
 
-      // Solo actualizar password sólo si se proporciona. Caso contrario "siga siga"
+      // Solo actualizar password si se proporciona
       if (!string.IsNullOrEmpty(propietarioDto.Password))
       {
-        propietario.Password = propietarioDto.Password;
+        // Verificar el password antiguo
+        var result = _passwordHasher.VerifyHashedPassword(propietario, propietario.Password, propietarioDto.OldPassword ?? "");
+
+        if (result == PasswordVerificationResult.Failed)
+        {
+          return BadRequest("La contraseña antigua es incorrecta");
+        }
+
+        propietario.Password = _passwordHasher.HashPassword(propietario, propietarioDto.Password);
       }
 
       await _context.SaveChangesAsync();
@@ -95,6 +127,19 @@ namespace InmobiliariaApi.Features.Propietario
       };
 
       return Ok(response);
+    }
+
+    private bool IsValidEmail(string email)
+    {
+      try
+      {
+        var addr = new System.Net.Mail.MailAddress(email);
+        return addr.Address == email;
+      }
+      catch
+      {
+        return false;
+      }
     }
   }
 }

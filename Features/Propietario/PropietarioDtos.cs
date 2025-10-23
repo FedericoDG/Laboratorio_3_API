@@ -9,6 +9,7 @@ namespace InmobiliariaApi.Features.Propietario
     public string Mail { get; set; } = string.Empty;
     public int Telefono { get; set; }
     public string? Password { get; set; }
+    public string? OldPassword { get; set; }
   }
 
   // DTO para la respuesta de propietario (sin password, obviamente...)
